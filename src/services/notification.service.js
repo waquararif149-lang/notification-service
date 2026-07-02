@@ -1,7 +1,8 @@
 import { emailQueue } from "../queue/email.queue.js"
+import { EMAIL_JOBS } from "../utils/job.constants.js";
 class notificationSerivce {
     async sendWelcomeemail(user) {
-        await emailQueue.add("welcome-email",
+        await emailQueue.add(EMAIL_JOBS.WELCOME,
             {
                 email: user.email,
                 name: user.name
