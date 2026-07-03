@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config({path:"../../.env"});
+import "../config/env.js"
 import {Worker} from "bullmq"
 import redisConnection from "../config/redis.js"
 import emailService from "../services/email.service.js"

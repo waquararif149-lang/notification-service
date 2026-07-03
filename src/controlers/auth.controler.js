@@ -10,15 +10,31 @@ export default class authControler{
       try{
 
         const result=await this.authservice.signUp(req.body);
-        res.json({
+        res.status(200).json({
           success:"true",
-          message:"signup successful",
+          message:"created acount please verify you Eamil",
           data:result
        })
       }catch(err){
         res.json({
             success:"false",
             message:"signup fail"
+        })
+      }
+    }
+
+    async verifyOtp(req,res){
+      try{
+        const user=await this.authservice.verifyOtp(req.body);
+        res.status(200).json({
+          success:true,
+          message:"email verified successfully",
+          data:user
+        })
+      }catch(err){
+        res.status(400).json({
+            success:"false",
+            message:`${err.message}`
         })
       }
     }

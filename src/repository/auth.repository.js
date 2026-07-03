@@ -10,4 +10,12 @@ export default class authRepo{
        throw err;
      }
     }
+
+    async verifyUser(email){
+       return await userModel.findOneAndUpdate(
+        {email},
+        {isVerified:true},
+        {new:true}
+       )
+    }
 }

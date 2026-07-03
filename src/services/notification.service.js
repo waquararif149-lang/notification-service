@@ -18,6 +18,20 @@ class notificationSerivce {
             }
         )
     }
+
+    async sendOtpEmail(data){
+      await emailQueue.add(EMAIL_JOBS.OTP,
+        data,
+        {
+            attempts:3,
+            backoff:{
+                type:"exponential",
+                delay:2000
+            },
+            removeOnComplete:true
+        }
+      )
+    }
 }
 
 export default new notificationSerivce();

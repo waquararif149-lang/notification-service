@@ -1,29 +1,20 @@
 import nodemailer from "nodemailer";
 
 
-// const transporter = nodemailer.createTransport({
-//     service: "gmail",
-//     auth: {
-//         user: process.env.EMAIL_USER,
-//         pass: process.env.EMAIL_PASS
-//     }
-// })
-
 class EmailService {
-    async sendWelcomeEmail(data) {
-        try {
-            console.log("Inside sendWelcomeEmail");
-            console.log(process.env.EMAIL_USER);
-            console.log(process.env.EMAIL_PASS);
 
-            const transporter = nodemailer.createTransport({
+   constructor(){
+    this.transporter=nodemailer.createTransport({
                 service: "gmail",
                 auth: {
                     user: process.env.EMAIL_USER,
                     pass: process.env.EMAIL_PASS
                 }
             })
+   }
 
+    async sendWelcomeEmail(data) {
+        try {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: data.email,
@@ -31,10 +22,9 @@ class EmailService {
                 text: `Hello ${data.name}, welcome to our platform!`
             };
 
-            const info = await transporter.sendMail(mailOptions);
+            await this.transporter.sendMail(mailOptions);
 
             console.log("Welcome email sent");
-            // console.log(info);
 
         } catch (err) {
             console.error("Error while sending email:");
@@ -42,6 +32,22 @@ class EmailService {
             throw err;
         }
     }
+
+    async sendOtpEmail(data) {
+     
+        console.log(`log from emailservice:${data}`);
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: data.email,
+        subject: "Verify your email",
+        text: `Your OTP is ${data.otp}. It expires in 5 minutes.`
+    };
+
+    await this.transporter.sendMail(mailOptions);
+
+    console.log("OTP email sent");
+}
 }
 
 export default new EmailService();
