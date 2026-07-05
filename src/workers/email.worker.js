@@ -1,7 +1,6 @@
 import "../config/env.js"
 import {Worker} from "bullmq"
 import redisConnection from "../config/redis.js"
-import emailService from "../services/email.service.js"
 import { handleEmailjob } from "../handlers/email.handler.js";
 
 

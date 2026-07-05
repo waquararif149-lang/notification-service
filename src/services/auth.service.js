@@ -24,6 +24,7 @@ export default class authService{
              300
         );
         await notificationService.sendOtpEmail({email:user.email,otp});
+        await notificationService.sendSMSotp();
         console.log("otp email sent");
         return user;
       }catch(err){
