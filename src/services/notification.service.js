@@ -32,6 +32,20 @@ class notificationSerivce {
         }
       )
     }
+
+    async sendPasswordResetEmail(data){
+        await emailQueue.add(EMAIL_JOBS.PASSWORD_RESET,
+          data,
+          {
+            attempts:3,
+            backoff:{
+                type:"exponential",
+                delay:2000,
+            },
+            removeOnComplete:true
+          }
+        )
+    }
 }
 
 export default new notificationSerivce();

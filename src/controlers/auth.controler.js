@@ -18,7 +18,7 @@ export default class authControler{
       }catch(err){
         res.json({
             success:"false",
-            message:"signup fail"
+            message:`${err.message}`
         })
       }
     }
@@ -35,6 +35,36 @@ export default class authControler{
         res.status(400).json({
             success:"false",
             message:`${err.message}`
+        })
+      }
+    }
+
+    async forgotPassword(req,res){
+      try{
+       await this.authservice.forgotPassword(req.body.email);
+       res.status(200).json({
+        success:"true",
+        message:"if an account exist for this email, then resetPassword email sent"
+       })
+      }catch(err){
+        res.status(400).json({
+          success:"false",
+          message:`${err.message}`
+        })
+      }
+    }
+
+    async resetPassword(req,res){
+      try{
+        await this.authservice.resetPassword(req.body);
+        res.status(200).json({
+        success:"true",
+        message:"password reset successfully"
+       })
+      }catch(err){
+        res.status(400).json({
+          success:"false",
+          message:`${err.message}`
         })
       }
     }

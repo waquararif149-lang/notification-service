@@ -12,10 +12,30 @@ export default class authRepo{
     }
 
     async verifyUser(email){
+      try{
        return await userModel.findOneAndUpdate(
         {email},
         {isVerified:true},
         {new:true}
        )
+      }catch(err){
+        throw err;
+      }
+    }
+
+    async updatePassword(email,password){
+       try{
+         return await userModel.findOneAndUpdate(
+          {email},
+          {password},
+          {new:true}
+         )
+       }catch(err){
+         throw err;
+       }
+    }
+
+    async findByEmail(email){
+      return await userModel.findOne({email});
     }
 }
