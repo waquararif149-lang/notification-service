@@ -16,6 +16,10 @@ const userSchema=mongoose.Schema({
     isVerified:{
         type:Boolean,
         default:false
+    },
+    deviceTokens:{
+        type:String,
+        default:null
     }
 },
 {

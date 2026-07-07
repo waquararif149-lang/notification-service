@@ -44,6 +44,13 @@ export default class authService{
        const user= await authrepository.verifyUser(data.email);
         await redisConnection.del(`otp${data.email}`);
         await notificationService.sendWelcomeemail(user);
+        await notificationService.sendWelcomePush(
+          {
+           token:user.deviceTokens,
+           title:`Hey ${user.name}`,
+           body:"Welcome to our platform"
+          }
+        )
         return user;
       }catch(err){
         throw err;

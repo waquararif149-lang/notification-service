@@ -1,6 +1,7 @@
 import { emailQueue } from "../queue/email.queue.js"
+import { pushQueue } from "../queue/push.queue.js";
 import { smsQueue } from "../queue/sms.queue.js";
-import { EMAIL_JOBS, SMS_JOBS } from "../utils/job.constants.js";
+import { EMAIL_JOBS, PUSH_JOBS, SMS_JOBS } from "../utils/job.constants.js";
 class notificationSerivce {
     async sendWelcomeemail(user) {
         await emailQueue.add(EMAIL_JOBS.WELCOME,
@@ -59,6 +60,20 @@ class notificationSerivce {
                 },
                 removeOnComplete:true
             }
+        )
+    }
+
+    async sendWelcomePush(data){
+        await pushQueue.add(PUSH_JOBS.WELCOME,
+          data,
+          {
+            attempts:3,
+                backoff:{
+                    type:"exponential",
+                    delay:2000
+                },
+                removeOnComplete:true
+          }
         )
     }
 }
