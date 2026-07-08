@@ -6,7 +6,7 @@ export default class deviceRepo{
        const user= await userModel.findOneAndUpdate(
             {email},
             {deviceTokens:token},
-            {new:true}
+            {returnDocument: "after"}
         )
       console.log(user);
       return user;

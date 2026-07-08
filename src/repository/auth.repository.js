@@ -16,7 +16,7 @@ export default class authRepo{
        return await userModel.findOneAndUpdate(
         {email},
         {isVerified:true},
-        {new:true}
+        {returnDocument: "after"}
        )
       }catch(err){
         throw err;
@@ -28,7 +28,7 @@ export default class authRepo{
          return await userModel.findOneAndUpdate(
           {email},
           {password},
-          {new:true}
+          {returnDocument: "after"}
          )
        }catch(err){
          throw err;

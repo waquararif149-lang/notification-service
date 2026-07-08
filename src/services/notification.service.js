@@ -3,7 +3,7 @@ import { pushQueue } from "../queue/push.queue.js";
 import { smsQueue } from "../queue/sms.queue.js";
 import { EMAIL_JOBS, PUSH_JOBS, SMS_JOBS } from "../utils/job.constants.js";
 class notificationSerivce {
-    async sendWelcomeemail(user) {
+    async sendWelcomeemail(user,options={}) {
         await emailQueue.add(EMAIL_JOBS.WELCOME,
             {
                 email: user.email,
@@ -16,7 +16,8 @@ class notificationSerivce {
                     delay: 2000
                 },
                 removeOnComplete: true,
-                priority: 1
+                priority: 1,
+                ...options
             }
         )
     }

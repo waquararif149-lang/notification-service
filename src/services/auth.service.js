@@ -49,7 +49,8 @@ export default class authService{
            token:user.deviceTokens,
            title:`Hey ${user.name}`,
            body:"Welcome to our platform"
-          }
+          },
+          {delay:60000}
         )
         return user;
       }catch(err){
