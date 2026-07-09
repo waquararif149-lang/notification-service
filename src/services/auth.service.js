@@ -4,6 +4,8 @@ import notificationService from "./notification.service.js";
 import { generateOTP } from "../utils/otp.js";
 import redisConnection from "../config/redis.js";
 import generateToken from "../utils/token.js";
+import { EMAIL_DELAY } from "../utils/email.delay.js";
+import { EMAIL_JOBS } from "../utils/job.constants.js";
 
 const authrepository=new authRepo();
 
@@ -52,6 +54,9 @@ export default class authService{
           },
           {delay:60000}
         )
+        await notificationService.sendWelcomeFollowup({jobName:EMAIL_JOBS.WELCOME_FOLLOWUP,user,delay:EMAIL_DELAY.WELCOME_FOLLOWUP});
+        await notificationService.sendWeeklyTips({jobName:EMAIL_JOBS.WEEKLY_TIPS,user,delay:EMAIL_DELAY.WEEKLY_TIPS})
+        await notificationService.sendInactiveReminder({jobName:EMAIL_JOBS.INACTIVE_REMINDER,user,delay:EMAIL_DELAY.INACTIVE_REMINDER})
         return user;
       }catch(err){
         throw err;

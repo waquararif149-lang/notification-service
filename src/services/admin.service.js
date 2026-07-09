@@ -1,3 +1,4 @@
+import { emailDLQ } from "../queue/DLQ.queue.js";
 import { emailQueue } from "../queue/email.queue.js";
 
 export default class adminService{
@@ -7,30 +8,33 @@ export default class adminService{
     }
 
     async getFailedJobs(){
-       const jobs= await emailQueue.getFailed();
+       const jobs= await emailDLQ.getJobs();
        return jobs.map(job=>({
           id:job.id,
+          originalJobId:job.data.originalJobId,
           name:job.name,
-          data:job.data,
-          failedReason:job.failedReason,
-          attemptsMade:job.attemptsMade
+          email:job.data.data.email,
+          queueName:job.data.queueName,
+          failedAt:job.data.failedAt,
+          failedReason:job.data.error,
+          attemptsMade:job.data.attemptsMade
        }));
     }
 
     async retryFailedJob(jobId){
-       const job=await emailQueue.getJob(jobId);
-       const state=job.getState();
+       const job=await emailDLQ.getJob(jobId);
        if(!job){
         throw new Error("job not found");
        }
-       if(state!="failed"){
-         throw new Error("Only failed jobs can be retried")
-       }
-       await job.retry();
+       await emailQueue.add(job.name,
+          job.data.data,
+          job.data.options
+       )
+       await job.remove();
     }
 
     async deleteJob(jobId){
-      const job=await emailQueue.getJob(jobId);
+      const job=await emailDLQ.getJob(jobId);
       if(!job){
         throw new Error("job not found");
       }

@@ -2,6 +2,9 @@ export const EMAIL_JOBS = {
     WELCOME: "welcome-email",
     OTP: "otp-email",
     PASSWORD_RESET: "password-reset-email",
+    WELCOME_FOLLOWUP:"welocme-followup-email",
+    WEEKLY_TIPS:"weekly-tips-email",
+    INACTIVE_REMINDER:"inactive-reminder-email"
 };
 
 export const SMS_JOBS = {

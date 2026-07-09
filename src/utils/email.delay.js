@@ -1,0 +1,7 @@
+export const EMAIL_DELAY={
+    WELCOME_FOLLOWUP: 24 * 60 * 60 * 1000,
+
+    WEEKLY_TIPS: 7 * 24 * 60 * 60 * 1000,
+
+    INACTIVE_REMINDER: 30 * 24 * 60 * 60 * 1000
+}
