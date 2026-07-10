@@ -1,4 +1,4 @@
-const intractiveReminderTemplate=(name)=>`
+const inactiveReminderTemplate=(name)=>`
  <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +7,7 @@ const intractiveReminderTemplate=(name)=>`
 </head>
 <body style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">
 
-    <h2>Hi <%= name %>, 👋</h2>
+    <h2>Hi ${name}, 👋</h2>
 
     <p>
         We noticed you haven't visited Notification System for a while.
@@ -41,4 +41,4 @@ const intractiveReminderTemplate=(name)=>`
 </html>
 `;
 
-export default intractiveReminderTemplate;
+export default inactiveReminderTemplate;

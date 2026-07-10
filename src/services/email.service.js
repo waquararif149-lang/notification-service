@@ -4,8 +4,7 @@ import otpTemplate from "../templates/email/otp.template.js";
 import resetPasswordTemplate from "../templates/email/resetPassword.template.js";
 import welcomeFolloupTemplate from "../templates/email/welcome-followup.template.js";
 import weeklyTipsTemplate from "../templates/email/weekly-tips.template.js";
-import intractiveReminderTemplate from "../templates/email/intractive-reminder.template.js";
-
+import inactiveReminderTemplate from "../templates/email/inactive-reminder.template.js";
 
 class EmailService {
 
@@ -40,19 +39,28 @@ class EmailService {
     }
 
     async sendOtpEmail(data) {
+        try {
+            console.log(`log from emailservice:${data}`);
 
-        console.log(`log from emailservice:${data}`);
+            if (!data.email) {
+                throw new Error("Email recipient not defined");
+            }
 
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: data.email,
-            subject: "Verify your email",
-            html: otpTemplate(data.otp)
-        };
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: data.email,
+                subject: "Verify your email",
+                html: otpTemplate(data.otp)
+            };
 
-        await this.transporter.sendMail(mailOptions);
+            await this.transporter.sendMail(mailOptions);
 
-        console.log("OTP email sent");
+            console.log("OTP email sent");
+        } catch (err) {
+            console.error("Error while sending OTP email:");
+            console.error(err);
+            throw err;
+        }
     }
 
     async sendPasswordResetEmail(data) {
@@ -98,7 +106,7 @@ class EmailService {
                 from: process.env.EMAIL_USER,
                 to: data.email,
                 subject: "We Miss You! Come Back to Notification System 👋",
-                html: intractiveReminderTemplate(data.name)
+                html: inactiveReminderTemplate(data.name)
             };
             await this.transporter.sendMail(mailOptions);
 

@@ -7,7 +7,7 @@ const handlers={
     [EMAIL_JOBS.PASSWORD_RESET]:emailService.sendPasswordResetEmail.bind(emailService),
     [EMAIL_JOBS.WELCOME_FOLLOWUP]:emailService.sendWelcomeFollowupEmail.bind(emailService),
     [EMAIL_JOBS.WEEKLY_TIPS]:emailService.sendWeeklyTipsEmail.bind(emailService),
-    [EMAIL_JOBS.INACTIVE_REMINDER]:emailService.sendInactiveReminderEmail(emailService)
+    [EMAIL_JOBS.INACTIVE_REMINDER]:emailService.sendInactiveReminderEmail.bind(emailService)
 }
 
 export const handleEmailjob=async(job)=>{

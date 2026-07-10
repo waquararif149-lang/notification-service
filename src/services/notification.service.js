@@ -1,7 +1,7 @@
 import { emailQueue } from "../queue/email.queue.js"
 import { pushQueue } from "../queue/push.queue.js";
 import { smsQueue } from "../queue/sms.queue.js";
-import { PUSH_JOBS, SMS_JOBS } from "../utils/job.constants.js";
+import { EMAIL_JOBS,PUSH_JOBS, SMS_JOBS } from "../utils/job.constants.js";
 class notificationSerivce {
     async sendWelcomeemail(user,options={}) {
         await emailQueue.add(EMAIL_JOBS.WELCOME,
