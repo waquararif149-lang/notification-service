@@ -1,0 +1,48 @@
+services:
+  app:
+    build: .
+    container_name: notification-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  email-worker:
+    build: .
+    container_name: email-worker
+    command: npm run email-worker
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  push-worker:
+    build: .
+    container_name: push-worker
+    command: npm run push-worker
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  sms-worker:
+    build: .
+    container_name: sms-worker
+    command: npm run sms-worker
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: notification-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped

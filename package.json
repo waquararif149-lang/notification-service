@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/server.js",
+    "email-worker": "node src/workers/email.worker.js",
+    "push-worker": "node src/workers/push.worker.js",
+    "sms-worker": "node src/workers/sms.worker.js",
+    "dev": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
