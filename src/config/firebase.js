@@ -11,7 +11,7 @@ const renderSecret = "/etc/secrets/firebase-admin.json";
 
 const firebasePath = fs.existsSync(renderSecret)
   ? renderSecret
-  : "./src/config/firebase-admin.json";
+  : "./config/firebase-admin.json";
 
 console.log("Using Firebase file:", firebasePath);
 
