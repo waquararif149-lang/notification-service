@@ -23,6 +23,7 @@ class notificationSerivce {
     }
 
     async sendOtpEmail(data){
+        console.log("adding email job")
       await emailQueue.add(EMAIL_JOBS.OTP,
         data,
         {
@@ -34,6 +35,7 @@ class notificationSerivce {
             removeOnComplete:true
         }
       )
+      console.log("email job adedd")
     }
 
     async sendPasswordResetEmail(data){
