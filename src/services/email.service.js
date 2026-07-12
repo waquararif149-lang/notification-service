@@ -22,13 +22,14 @@ class EmailService {
     async sendWelcomeEmail(data) {
         try {
             const mailOptions = {
-                from: process.env.EMAIL_USER,
+                from: "Notification System <onboarding@resend.dev>",
                 to: data.email,
                 subject: "Welcome to our Platform",
                 html: welcomeTemplate(data.name)
             };
 
-            await this.transporter.sendMail(mailOptions);
+            // await this.transporter.sendMail(mailOptions);
+            await resend.emails.send(mailOptions);
 
             console.log("Welcome email sent");
 
@@ -69,48 +70,52 @@ class EmailService {
         const resetLink = `https://localhost:3000/reset-password?token=${data.token}&email=${data.email}`;
         console.log("log from emailservice",data.token);
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: "Notification System <onboarding@resend.dev>",
             to: data.email,
             subject: "Reset Password",
             html:resetPasswordTemplate(resetLink)
         };
 
-        await this.transporter.sendMail(mailOptions);
+        // await this.transporter.sendMail(mailOptions);
+        await resend.emails.send(mailOptions);
         console.log("resetPassword email sent");
     }
 
     async sendWelcomeFollowupEmail(data){
        const mailOptions = {
-                from: process.env.EMAIL_USER,
+                from: "Notification System <onboarding@resend.dev>",
                 to: data.email,
                 subject: "Getting Started with Notification System 🚀",
                 html: welcomeFolloupTemplate(data.name)
             };
-            await this.transporter.sendMail(mailOptions);
+            // await this.transporter.sendMail(mailOptions);
+            await resend.emails.send(mailOptions);
 
             console.log("Welcome followup email sent");
     }
 
     async sendWeeklyTipsEmail(data){
         const mailOptions = {
-                from: process.env.EMAIL_USER,
+                from:"Notification System <onboarding@resend.dev>",
                 to: data.email,
                 subject: "Your Weekly Notification Tips 📬",
                 html: weeklyTipsTemplate(data.name)
             };
-            await this.transporter.sendMail(mailOptions);
+            // await this.transporter.sendMail(mailOptions);
+            await resend.emails.send(mailOptions);
 
             console.log("weekly email sent");
     }
 
     async sendInactiveReminderEmail(data){
         const mailOptions = {
-                from: process.env.EMAIL_USER,
+                from: "Notification System <onboarding@resend.dev>",
                 to: data.email,
                 subject: "We Miss You! Come Back to Notification System 👋",
                 html: inactiveReminderTemplate(data.name)
             };
-            await this.transporter.sendMail(mailOptions);
+            // await this.transporter.sendMail(mailOptions);
+            await resend.emails.send(mailOptions);
 
             console.log("intractive reminder email sent");
     }
