@@ -1,5 +1,10 @@
 import { initializeApp, cert } from "firebase-admin/app";
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 console.log("Secret exists:", fs.existsSync("/etc/secrets/firebase-admin.json"));
 
@@ -11,7 +16,7 @@ const renderSecret = "/etc/secrets/firebase-admin.json";
 
 const firebasePath = fs.existsSync(renderSecret)
   ? renderSecret
-  : "./config/firebase-admin.json";
+  : path.join(__dirname, "firebase-admin.json");
 
 console.log("Using Firebase file:", firebasePath);
 
