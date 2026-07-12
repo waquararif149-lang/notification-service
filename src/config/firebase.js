@@ -1,12 +1,26 @@
 import { initializeApp, cert } from "firebase-admin/app";
-import { readFileSync } from "fs";
+import fs from "fs";
+
+console.log("Secret exists:", fs.existsSync("/etc/secrets/firebase-admin.json"));
+
+if (fs.existsSync("/etc/secrets")) {
+  console.log("Files in /etc/secrets:", fs.readdirSync("/etc/secrets"));
+}
+
+const renderSecret = "/etc/secrets/firebase-admin.json";
+
+const firebasePath = fs.existsSync(renderSecret)
+  ? renderSecret
+  : "./src/config/firebase-admin.json";
+
+console.log("Using Firebase file:", firebasePath);
 
 const serviceAccount = JSON.parse(
-    readFileSync(new URL("./firebase-admin.json", import.meta.url), "utf8")
+  fs.readFileSync(firebasePath, "utf8")
 );
 
 const app = initializeApp({
-    credential: cert(serviceAccount)
+  credential: cert(serviceAccount),
 });
 
 export default app;
