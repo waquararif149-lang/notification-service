@@ -16,4 +16,5 @@ export const handleEmailjob=async(job)=>{
     throw new Error(`unknow job type:${job.name}`);
    }
    await handler(job.data);
+   console.log("email service called from handler");
 }

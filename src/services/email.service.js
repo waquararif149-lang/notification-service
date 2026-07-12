@@ -5,6 +5,7 @@ import resetPasswordTemplate from "../templates/email/resetPassword.template.js"
 import welcomeFolloupTemplate from "../templates/email/welcome-followup.template.js";
 import weeklyTipsTemplate from "../templates/email/weekly-tips.template.js";
 import inactiveReminderTemplate from "../templates/email/inactive-reminder.template.js";
+import resend from "../config/resend.js";
 
 class EmailService {
 
@@ -47,13 +48,14 @@ class EmailService {
             }
 
             const mailOptions = {
-                from: process.env.EMAIL_USER,
+                from: "Notification System <onboarding@resend.dev>",
                 to: data.email,
                 subject: "Verify your email",
                 html: otpTemplate(data.otp)
             };
 
-            await this.transporter.sendMail(mailOptions);
+            // await this.transporter.sendMail(mailOptions);
+            await resend.emails.send(mailOptions);
 
             console.log("OTP email sent");
         } catch (err) {
