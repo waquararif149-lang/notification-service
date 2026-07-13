@@ -95,4 +95,8 @@ export default class authService{
          const user=await authrepository.updatePassword(data.email,hashedpassword);
          await redisConnection.del(`reset:${data.email}`);
     }
+
+    async login(data) {
+      return await authrepository.login(data);
+    }
 }
