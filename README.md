@@ -295,6 +295,8 @@ In production, Email, SMS, and Push workers should run as **independent backgrou
 
 Since Render's free tier does not provide free Background Workers, the worker processes are started from the main application process for deployment purposes.
 
+LIVE ON : https://notification-app-i3py.onrender.com
+
 ---
 
 # 👨‍💻 Author
