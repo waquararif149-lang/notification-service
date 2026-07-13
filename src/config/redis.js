@@ -1,18 +1,18 @@
 import Redis from "ioredis";
 
+const isLocal = !process.env.REDIS_PASSWORD;
+
 const redisOptions = {
-    host: process.env.REDIS_HOST,
-    port: Number(process.env.REDIS_PORT),
+    host: isLocal ? "localhost" : process.env.REDIS_HOST,
+    port: isLocal ? 6379 : Number(process.env.REDIS_PORT),
     maxRetriesPerRequest: null,
 };
 
-// Only use password if it exists
-if (process.env.REDIS_PASSWORD) {
+if (!isLocal && process.env.REDIS_PASSWORD) {
     redisOptions.password = process.env.REDIS_PASSWORD;
 }
 
-// Only enable TLS when using Upstash/Render
-if (process.env.REDIS_TLS === "true") {
+if (!isLocal) {
     redisOptions.tls = {};
 }
 
