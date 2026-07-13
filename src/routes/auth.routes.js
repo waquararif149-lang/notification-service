@@ -25,4 +25,5 @@ authRouter.post("/forgot-password",rateLimiter({
 }),authcontroler.forgotPassword.bind(authcontroler));
 
 authRouter.post("/reset-password",authcontroler.resetPassword.bind(authcontroler));
+authRouter.post("/login",authcontroler.login.bind(authcontroler));
 
