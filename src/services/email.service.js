@@ -9,16 +9,6 @@ import resend from "../config/resend.js";
 
 class EmailService {
 
-    constructor() {
-        this.transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        })
-    }
-
     async sendWelcomeEmail(data) {
         try {
             const mailOptions = {
