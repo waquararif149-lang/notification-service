@@ -1,20 +1,13 @@
 import Redis from "ioredis";
 
-const isLocal = !process.env.REDIS_PASSWORD;
 
 const redisOptions = {
-    host: isLocal ? "localhost" : process.env.REDIS_HOST,
-    port: isLocal ? 6379 : Number(process.env.REDIS_PORT),
+    host: process.env.REDIS_HOST,
+    port: Number(process.env.REDIS_PORT),
+    password:process.env.REDIS_PASSWORD,
+    tls:{},
     maxRetriesPerRequest: null,
 };
-
-if (!isLocal && process.env.REDIS_PASSWORD) {
-    redisOptions.password = process.env.REDIS_PASSWORD;
-}
-
-if (!isLocal) {
-    redisOptions.tls = {};
-}
 
 const redisConnection = new Redis(redisOptions);
 
