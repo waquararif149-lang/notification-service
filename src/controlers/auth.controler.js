@@ -71,7 +71,7 @@ export default class authControler {
 
    async login(req, res) {
     try {
-        const user = await authservice.login(req.body);
+        const user = await this.authservice.login(req.body);
 
         const token = jwt.sign(
             {
