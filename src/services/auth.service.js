@@ -51,8 +51,7 @@ export default class authService{
            token:user.deviceTokens,
            title:`Hey ${user.name}`,
            body:"Welcome to our platform"
-          },
-          {delay:60000}
+          }
         )
         await notificationService.sendWelcomeFollowup({jobName:EMAIL_JOBS.WELCOME_FOLLOWUP,user,delay:EMAIL_DELAY.WELCOME_FOLLOWUP});
         await notificationService.sendWeeklyTips({jobName:EMAIL_JOBS.WEEKLY_TIPS,user,delay:EMAIL_DELAY.WEEKLY_TIPS})

@@ -70,6 +70,7 @@ class notificationSerivce {
         await pushQueue.add(PUSH_JOBS.WELCOME,
           data,
           {
+            delay:60000,
             attempts:3,
                 backoff:{
                     type:"exponential",
