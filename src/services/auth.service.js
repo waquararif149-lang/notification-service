@@ -12,6 +12,10 @@ const authrepository=new authRepo();
 export default class authService{
     async signUp(data){
         try{
+        const existingUser = await authrepository.findByEmail(data.email);
+        if (existingUser) {
+          throw new Error("Email already registered");
+       }
         const hashedpassword=await bcrypt.hash(data.password,10);
         const userData={
             ...data,

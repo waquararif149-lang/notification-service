@@ -7,6 +7,9 @@ export default class authRepo{
        user.save();
        return user;
      }catch(err){
+       if(err.code===11000){
+         throw new Error("Email already exists");
+       }
        throw err;
      }
     }
