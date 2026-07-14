@@ -4,15 +4,18 @@ import serverAdapter from "./config/bullboard.js";
 import adminRouter from "./routes/admin.routes.js";
 import deviceRouter from "./routes/device.routes.js";
 import verifyJWT from "./midleware/jwt.midleware.js";
+import verifyAdmin from "./midleware/admin.midleware.js";
+import cookieParser from "cookie-parser";
 
 const app=express();
 
+app.use(cookieParser());
 app.use(express.json());
-app.use("/admin/queues",serverAdapter.getRouter());
+app.use("/admin/queues",verifyJWT,verifyAdmin,serverAdapter.getRouter());
 app.use(express.urlencoded({extended:true}))
 
 app.use("/api/user",authRouter);
-app.use("/api/admin",verifyJWT,adminRouter);
+app.use("/api/admin",verifyJWT,verifyAdmin,adminRouter);
 app.use("/api/device",deviceRouter);
 
 export default app;

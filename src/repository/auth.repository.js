@@ -1,4 +1,5 @@
 import { userModel } from "../models/user.model.js"
+import bcrypt from "bcrypt";
 
 export default class authRepo {
   async signUp(data) {
@@ -43,7 +44,7 @@ export default class authRepo {
   }
 
   async login(data) {
-    const user = await UserModel.findOne({
+    const user = await userModel.findOne({
       email: data.email
     });
 
