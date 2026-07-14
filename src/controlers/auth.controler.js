@@ -9,7 +9,8 @@ export default class authControler {
 
   async signUp(req, res) {
     try {
-      const result = await this.authservice.signUp(req.body);
+      const {name,email,password}=req.body;
+      const result = await this.authservice.signUp({name,email,password});
       res.status(200).json({
         success: "true",
         message: "created acount please verify you Email",
